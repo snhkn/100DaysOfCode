@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/snhkn/100DaysOfCode/Go/HelloWorld/pkg/config"
+	"github.com/snhkn/100DaysOfCode/Go/HelloWorld/pkg/handlers"
 )
 
 var app *config.AppConfig
@@ -18,7 +19,7 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 // RenderTemplate renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *handlers.TemplateData) {
 	var tmplCache map[string]*template.Template
 
 	// when in developer mode don't use cache for testing purposes
