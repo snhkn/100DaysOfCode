@@ -6,26 +6,38 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/snhkn/100DaysOfCode/Go/HelloWorld/pkg/config"
 )
+
+var app *config.AppConfig
+
+// NewTemplates sets the config for template package
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
 
 // RenderTemplate renders templates using html/template
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	//get the template cache from app config
+	var tmplCache map[string]*template.Template
 
-	// create a template cache
-	tmplCache, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal(err)
+	// when in developer mode don't use cache for testing purposes
+	if app.UseCache {
+		//get the template cache from app config
+		tmplCache = app.TemplateCache
+	} else {
+		tmplCache, _ = CreateTemplateCache()
 	}
+
 	// get requested template from cache
 	t, ok := tmplCache[tmpl]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	//for debugging
 	buf := new(bytes.Buffer)
-	err = t.Execute(buf, nil)
+	err := t.Execute(buf, nil)
 	if err != nil {
 		log.Println(err)
 	}
