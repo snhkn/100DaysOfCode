@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/snhkn/100DaysOfCode/Go/HelloWorld/pkg/config"
-	"github.com/snhkn/100DaysOfCode/Go/HelloWorld/pkg/handlers"
+	"github.com/snhkn/100DaysOfCode/Go/HelloWorld/pkg/models"
 )
 
 var app *config.AppConfig
@@ -19,7 +19,7 @@ func NewTemplates(a *config.AppConfig) {
 }
 
 // RenderTemplate renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *handlers.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tmplCache map[string]*template.Template
 
 	// when in developer mode don't use cache for testing purposes
@@ -38,7 +38,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *handlers.TemplateDat
 
 	//for debugging
 	buf := new(bytes.Buffer)
-	err := t.Execute(buf, nil)
+	err := t.Execute(buf, td)
 	if err != nil {
 		log.Println(err)
 	}
