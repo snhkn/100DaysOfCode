@@ -18,6 +18,12 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
+// AddDefaultData add default data to templates
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	//to be modified to populate the TemplateData object with that default data
+	return td
+}
+
 // RenderTemplate renders templates using html/template
 func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tmplCache map[string]*template.Template
@@ -38,6 +44,9 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 
 	//for debugging
 	buf := new(bytes.Buffer)
+
+	td = AddDefaultData(td)
+
 	err := t.Execute(buf, td)
 	if err != nil {
 		log.Println(err)
