@@ -1,3 +1,4 @@
 - pat (formerly pat.go) - A Sinatra style pattern muxer for Go's net/http library *(https://github.com/bmizerany/pat)*
 - chi is a lightweight, idiomatic and composable router for building Go HTTP services. *(https://github.com/go-chi/chi)*
+- noSurf is an HTTP package for Go that helps you prevent Cross-Site Request Forgery attacks. *(https://github.com/justinas/nosurf)*
 - SCS: HTTP Session Management for Go *(https://github.com/alexedwards/scs)*
